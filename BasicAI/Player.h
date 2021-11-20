@@ -20,12 +20,13 @@
 #include "Particles.h"                  // sistema de partículas
 #include "Controller.h"                 // entrada pelo controle
 #include "Timer.h"                      // controle do tempo
-
+#include "Arma.h"
 // ---------------------------------------------------------------------------------
 
 class Player : public Object
 {
-private:
+private:    
+    Arma* arma;
     Sprite * sprite;                    // sprite do objeto
     Particles * tail;                   // calda do jogador
     uint tailCount;                     // quantidade de partículas da calda
@@ -40,8 +41,9 @@ private:
     bool keysPressed;                   // qualquer seta pressionada
     float firingAngle;                  // direção dos disparos
 
+
 public:
-    static Image * missile;             // imagem do míssil
+    //static Image * missile;             // imagem do míssil
     Vector speed;                       // velocidade e direção de movimento
 
     Player();                           // construtor

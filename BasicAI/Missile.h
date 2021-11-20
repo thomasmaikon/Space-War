@@ -24,7 +24,7 @@
 class Missile : public Object
 {
 private:
-    static Player* & player;            // referência para o player
+    //static Player* & player;            // referência para o player
     Sprite * sprite;                    // sprite do míssil
     Vector speed;                       // velocidade do míssil    
     

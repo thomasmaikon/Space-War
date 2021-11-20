@@ -14,19 +14,20 @@
 #include "BasicAI.h"
 #include "Hud.h"
 
-Image * Player::missile = nullptr;
+//Image * Player::missile = nullptr;
 
 // -------------------------------------------------------------------------------
 
 Player::Player()
 {
+    arma = new Arma(TipoArma::FOGUETE);
     // inicializa controle
     gamepad = new Controller();
     gamepadOn = gamepad->Initialize();
 
     // configuração do objeto
     sprite = new Sprite("Resources/Player.png");
-    missile = new Image("Resources/Missile.png");
+    //missile = new Image("Resources/Missile.png");
     speed.RotateTo(90.0f);
     speed.ScaleTo(0.0f);
     BBox(new Circle(18.0f));
@@ -66,7 +67,7 @@ Player::Player()
 Player::~Player()
 {
     delete sprite;
-    delete missile;
+    //delete missile;
     delete tail;
     delete gamepad;
 }
@@ -181,8 +182,9 @@ void Player::Update()
         if (AxisTimed(AxisRX, AxisRY, 0.150f))
         {
             float ang = Line::Angle(Point(0,0), Point(float(gamepad->Axis(AxisRX)), float(gamepad->Axis(AxisRY))));
-            BasicAI::audio->Play(FIRE);
-            BasicAI::scene->Add(new Missile(ang), STATIC);
+            arma->Disparo(ang);
+            //BasicAI::audio->Play(FIRE);
+            //BasicAI::scene->Add(new Missile(ang), STATIC);
         }
     }
 
@@ -258,8 +260,8 @@ void Player::Update()
         // dispara míssil
         if (KeysTimed(keysPressed, 0.150f))
         {
-            BasicAI::audio->Play(FIRE);
-            BasicAI::scene->Add(new Missile(firingAngle), STATIC);
+            arma->Disparo(firingAngle);
+            //BasicAI::scene->Add(new Missile(firingAngle), STATIC);
         }
     }
     float angle = Line::Angle(Point(x, y), Point(BasicAI::blackHole->X(), BasicAI::blackHole->Y()));

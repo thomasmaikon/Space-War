@@ -156,6 +156,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Animation.cpp" />
+    <ClCompile Include="Arma.cpp" />
     <ClCompile Include="Audio.cpp" />
     <ClCompile Include="Background.cpp" />
     <ClCompile Include="Blue.cpp" />
@@ -172,6 +173,7 @@
     <ClCompile Include="Green.cpp" />
     <ClCompile Include="Hud.cpp" />
     <ClCompile Include="Image.cpp" />
+    <ClCompile Include="InterfaceProjetil.cpp" />
     <ClCompile Include="Magenta.cpp" />
     <ClCompile Include="Missile.cpp" />
     <ClCompile Include="Object.cpp" />
@@ -197,6 +199,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation.h" />
+    <ClInclude Include="Arma.h" />
     <ClInclude Include="Audio.h" />
     <ClInclude Include="Background.h" />
     <ClInclude Include="BlackHole.h" />

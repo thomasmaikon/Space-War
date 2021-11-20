@@ -16,14 +16,14 @@
 
 // ------------------------------------------------------------------------------
 
-Player* & Missile::player = BasicAI::player;        // referência para o player
+//Player* & Missile::player = BasicAI::player;        // referência para o player
 
 // ------------------------------------------------------------------------------
 
 Missile::Missile(float angle)
 {
     // inicializa sprite
-    sprite = new Sprite(Player::missile);
+    sprite = new Sprite("Resources/Missile.png");
 
     // cria bounding box
     BBox(new Circle(8));
@@ -33,7 +33,7 @@ Missile::Missile(float angle)
     speed.ScaleTo(15.0f);
     
     // move para posição
-    MoveTo(player->X() + 40 * cos(speed.Radians()), player->Y() - 40 * sin(speed.Radians()));
+    MoveTo(BasicAI::player->X() + 40 * cos(speed.Radians()), BasicAI::player->Y() - 40 * sin(speed.Radians()));
     RotateTo(-speed.Angle() + 90.0f);
 
     // define tipo
@@ -66,7 +66,7 @@ void Missile::Update()
         // volume do som de destruição depende da distância para o jogador
         const float MaxDistance = 4406;
         const float BaseVolume = 0.8f;
-        float distance = Point::Distance(Point(x, y), Point(player->X(), player->Y()));
+        float distance = Point::Distance(Point(x, y), Point(BasicAI::player->X(), BasicAI::player->Y()));
         float level = (MaxDistance - distance) / MaxDistance;
         BasicAI::audio->Volume(HITWALL, level * BaseVolume);
         BasicAI::audio->Play(HITWALL);
