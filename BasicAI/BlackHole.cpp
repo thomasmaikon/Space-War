@@ -2,7 +2,6 @@
 #include "BlackHole.h"
 #include "Random.h" 
 #include "Image.h"
-#include "Missile.h"
 // ---------------------------------------------------------------------------------
 
 BlackHole::BlackHole(float pX, float pY)
@@ -63,14 +62,7 @@ void BlackHole::OnCollision(Object* obj)
     
     switch(obj->Type())
     {
-    
-    case Ids::MISSILE: {
 
-        auto* missile = (Missile*)obj;
-        missile->Rotate(20);
-        missile->ScaleTo(missile->Scale() - 5);
-        break;
-    }
    
     case Ids::PLAYER: {
         auto* player = (Player*)obj;

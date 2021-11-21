@@ -1,6 +1,6 @@
 #include "Arma.h"
 #include "BasicAI.h"
-#include "Missile.h"
+#include "Laser.h"
 Arma::Arma(uint tipoDeArma) {
 	tipoArma = tipoDeArma;
 }
@@ -14,7 +14,7 @@ void Arma::Disparo(float angulo, Object* obj) {
 	switch (tipoArma) {
 		case TipoArma::FOGUETE:
 			BasicAI::audio->Play(FIRE);
-			BasicAI::scene->Add(new Missile(angulo,obj->X(),obj->Y()), STATIC);
+			BasicAI::scene->Add(new Laser(angulo,obj->X(),obj->Y()), STATIC);
 			break;
 
 	}

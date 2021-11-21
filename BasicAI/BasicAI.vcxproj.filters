@@ -105,7 +105,7 @@
     <ClCompile Include="Orange.cpp">
       <Filter>Game\Arquivos de Origem</Filter>
     </ClCompile>
-    <ClCompile Include="Missile.cpp">
+    <ClCompile Include="Laser.cpp">
       <Filter>Game\Arquivos de Origem</Filter>
     </ClCompile>
     <ClCompile Include="Magenta.cpp">
@@ -230,7 +230,7 @@
     <ClInclude Include="Magenta.h">
       <Filter>Game\Arquivos de Cabeçalho</Filter>
     </ClInclude>
-    <ClInclude Include="Missile.h">
+    <ClInclude Include="Laser.h">
       <Filter>Game\Arquivos de Cabeçalho</Filter>
     </ClInclude>
     <ClInclude Include="Orange.h">
