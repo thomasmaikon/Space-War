@@ -24,11 +24,18 @@
 
 // ---------------------------------------------------------------------------------
 
+enum NIVEL {FACIL, MODERADO, DIFICIL};
+
 class Boss : public Object
 {
 private:
     Sprite* sprite;                    // sprite do objeto
     Arma* arma;
+
+    float vida[3];
+    float intervaloDisparo[3];
+    uint nivel;
+
 
     Timer timer;                        // controla tempo dos disparos
     llong start;                        // marcação de início do disparo
@@ -36,6 +43,8 @@ private:
     bool keysCtrl;                      // habilita disparos pelas setas
     bool keysPressed;                   // qualquer seta pressionada
     float firingAngle;                  // direção dos disparos
+    
+    void Atualizar(uint nivel);
 
 public:
     //static Image* missile;             // imagem do míssil
@@ -52,6 +61,9 @@ public:
     void Draw();                        // desenho
 
     void OnCollision(Object* obj);
+
+    void DanoSofrido(float dano);
+    float Vida();
 };
 // ---------------------------------------------------------------------------------
 

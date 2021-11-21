@@ -5,15 +5,30 @@
 // -------------------------------------------------------------------------------
 Boss::Boss()
 {
-
+    // tipo de arma utilizada pelo chefao
     arma = new Arma(TipoArma::FOGUETE);
 
+    // sprite do chefao
     sprite = new Sprite("Resources/Player.png");
-    //missile = new Image("Resources/Missile.png");
+    
+    // Inicializa o chefao
+    vida[NIVEL::FACIL] = 10;
+    intervaloDisparo[NIVEL::FACIL] = 2.0f;
+    
+    vida[NIVEL::MODERADO] = 20;
+    intervaloDisparo[NIVEL::MODERADO] = 1.0f;
+    
+    vida[NIVEL::DIFICIL] = 30;
+    intervaloDisparo[NIVEL::DIFICIL] = 0.2f;
+
+    nivel = NIVEL::FACIL;
+
+    
     speed.RotateTo(90.0f);
     speed.ScaleTo(0.0f);
     BBox(new Circle(18.0f));
     MoveTo(300, 300);
+    
     type = Ids::BOSS;
 
     // diparo habilitado
@@ -31,31 +46,6 @@ Boss::~Boss()
 {
     delete sprite;
     //delete missile;
-}
-
-// -------------------------------------------------------------------------------
-
-bool Boss::KeysTimed(bool pressed, float time)
-{
-    // se já passou o tempo para o próximo disparo
-    if (keysCtrl)
-    {
-        // se há qualquer seta pressionada
-        if (pressed)
-        {
-            keysCtrl = false;
-            start = timer.Stamp();
-            return true;
-        }
-    }
-    // senão aguarda o momento certo
-    else if (timer.Elapsed(start, time))
-    {
-        keysCtrl = true;
-    }
-
-    // teclas não pressionadas ou tempo não atingido
-    return false;
 }
 
 // -------------------------------------------------------------------------------
@@ -127,9 +117,13 @@ void Boss::Update()
         arma->Disparo(angle,this);
     }
     // senão aguarda o momento certo
-    else if (timer.Elapsed(start, 1.0f))
+    else if (timer.Elapsed(start, intervaloDisparo[nivel]))
     {
         keysCtrl = true;
+    }
+
+    if (vida[nivel] <= 0 && nivel != NIVEL::DIFICIL) {// se chegar no ultimo nivel nao tem mais o que fazer
+        nivel = (nivel + 1) % 3; // numero de niveis que o boss fica durante a batalha
     }
 }
 
@@ -140,8 +134,26 @@ void Boss::Draw()
     sprite->Draw(x, y, Layer::MIDDLE, 1.0f, -speed.Angle() + 90.0f);
 }
 
+// -------------------------------------------------------------------------------
+
 void Boss::OnCollision(Object* obj)
 {
+    switch (nivel)
+    {
+    default:
+        break;
+    }
 }
+
+// -------------------------------------------------------------------------------
+
+void Boss::DanoSofrido(float dano) {
+    vida[nivel] = vida[nivel] - dano;
+    
+}
+
+// -------------------------------------------------------------------------------
+
+float Boss::Vida() { return vida[nivel]; }
 
 // -------------------------------------------------------------------------------

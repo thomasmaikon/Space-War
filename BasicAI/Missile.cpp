@@ -13,7 +13,7 @@
 #include "WallHit.h"
 #include "BasicAI.h"
 #include "Hud.h"
-
+#include "Boss.h"
 // ------------------------------------------------------------------------------
 
 //Player* & Missile::player = BasicAI::player;        // referência para o player
@@ -91,6 +91,11 @@ void Missile::OnCollision(Object* obj) {
     case Ids::PLAYER: {
         auto player = (Player*)obj;
         player->DanoSofrido(15);
+        break;
+    }
+    case Ids::BOSS: {
+        auto boss = (Boss*)obj;
+        boss->DanoSofrido(10);
         break;
     }
     }

@@ -25,7 +25,7 @@ Player::Player()
     arma = new Arma(TipoArma::FOGUETE);
     
     //iniciando a vida do jogador
-    vida = 100.0f;
+    vida = 100000.0f;
 
     // inicializa controle
     gamepad = new Controller();
