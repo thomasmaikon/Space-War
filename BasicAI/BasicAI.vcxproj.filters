@@ -150,9 +150,6 @@
     <ClCompile Include="Arma.cpp">
       <Filter>Game\Arquivos de Origem</Filter>
     </ClCompile>
-    <ClCompile Include="InterfaceProjetil.cpp">
-      <Filter>Game\Arquivos de Origem</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation.h">

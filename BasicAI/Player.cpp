@@ -20,7 +20,13 @@
 
 Player::Player()
 {
+ 
+    // definindo tipo de arma, e tipo de projetil
     arma = new Arma(TipoArma::FOGUETE);
+    
+    //iniciando a vida do jogador
+    vida = 100.0f;
+
     // inicializa controle
     gamepad = new Controller();
     gamepadOn = gamepad->Initialize();
@@ -182,7 +188,7 @@ void Player::Update()
         if (AxisTimed(AxisRX, AxisRY, 0.150f))
         {
             float ang = Line::Angle(Point(0,0), Point(float(gamepad->Axis(AxisRX)), float(gamepad->Axis(AxisRY))));
-            arma->Disparo(ang);
+            arma->Disparo(ang, this);
             //BasicAI::audio->Play(FIRE);
             //BasicAI::scene->Add(new Missile(ang), STATIC);
         }
@@ -260,7 +266,7 @@ void Player::Update()
         // dispara míssil
         if (KeysTimed(keysPressed, 0.150f))
         {
-            arma->Disparo(firingAngle);
+            arma->Disparo(firingAngle, this);
             //BasicAI::scene->Add(new Missile(firingAngle), STATIC);
         }
     }
@@ -300,15 +306,15 @@ void Player::Draw()
     tail->Draw(Layer::LOWER, 1.0f);
 }
 
+// -------------------------------------------------------------------------------
+
 void Player::OnCollision(Object* obj)
 {   
-    switch(obj->Type())
-    {
-    case Ids::BLACKHOLE: {
-        
-        break;
-    }
-    }
+    
 }
 
 // -------------------------------------------------------------------------------
+
+void Player::DanoSofrido(float dano) {
+    vida = vida - dano;
+}

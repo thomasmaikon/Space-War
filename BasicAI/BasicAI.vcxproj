@@ -173,7 +173,6 @@
     <ClCompile Include="Green.cpp" />
     <ClCompile Include="Hud.cpp" />
     <ClCompile Include="Image.cpp" />
-    <ClCompile Include="InterfaceProjetil.cpp" />
     <ClCompile Include="Magenta.cpp" />
     <ClCompile Include="Missile.cpp" />
     <ClCompile Include="Object.cpp" />

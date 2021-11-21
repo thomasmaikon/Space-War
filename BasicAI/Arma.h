@@ -38,7 +38,7 @@ public:
     void Update();                      // atualização
     void Draw();                        // desenho
 
-    void Disparo(float angulo);
+    void Disparo(float angulo, Object* obj);
     void ModificarArma(uint escolha);
 };
 // ---------------------------------------------------------------------------------

@@ -97,6 +97,9 @@ void BasicAI::Update()
     if (window->KeyDown(VK_ESCAPE))
         window->Close();
 
+    if (BasicAI::player->Vida() <= 0) {
+        window->Close();
+    }
     // atualiza cena e calcula colisões
     scene->Update();
     scene->CollisionDetection();

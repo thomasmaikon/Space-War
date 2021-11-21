@@ -1,14 +1,3 @@
-/**********************************************************************************
-// Orange (Código Fonte)
-//
-// Criação:     05 Ago 2019
-// Atualização: 11 Nov 2021
-// Compilador:  Visual C++ 2019
-//
-// Descrição:   Objeto faz movimento retilíneo
-//
-**********************************************************************************/
-
 #include "BasicAI.h"
 #include "BlackHole.h"
 #include "Random.h" 
@@ -85,7 +74,9 @@ void BlackHole::OnCollision(Object* obj)
    
     case Ids::PLAYER: {
         auto* player = (Player*)obj;
-        player->MoveTo(300, 300);
+        float x = RandF(10, 3830).Rand();
+        float y = RandF(10, 2150).Rand();
+        player->MoveTo(x, y);
         //player->ScaleTo(player->Scale() - 5);
         break;
     }

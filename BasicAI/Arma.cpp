@@ -9,11 +9,12 @@ Arma::~Arma() {
 
 }
 
-void Arma::Disparo(float angulo) {
+void Arma::Disparo(float angulo, Object* obj) {
+
 	switch (tipoArma) {
 		case TipoArma::FOGUETE:
 			BasicAI::audio->Play(FIRE);
-			BasicAI::scene->Add(new Missile(angulo), STATIC);
+			BasicAI::scene->Add(new Missile(angulo,obj->X(),obj->Y()), STATIC);
 			break;
 
 	}

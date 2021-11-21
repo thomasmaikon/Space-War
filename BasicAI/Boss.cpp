@@ -5,17 +5,15 @@
 // -------------------------------------------------------------------------------
 Boss::Boss()
 {
-    // inicializa controle
-//    gamepad = new Controller();
-//    gamepadOn = gamepad->Initialize();
 
-    // configuração do objeto
+    arma = new Arma(TipoArma::FOGUETE);
+
     sprite = new Sprite("Resources/Player.png");
     //missile = new Image("Resources/Missile.png");
     speed.RotateTo(90.0f);
     speed.ScaleTo(0.0f);
     BBox(new Circle(18.0f));
-    MoveTo(game->CenterX()+100, game->CenterY()+100);
+    MoveTo(300, 300);
     type = Ids::BOSS;
 
     // diparo habilitado
@@ -120,6 +118,19 @@ void Boss::Update()
         Translate(speed.XComponent() * 100.0f * gameTime, -speed.YComponent() * 100.0f * gameTime);
     }
 
+    // A nave vai atirar para o mesmo objeto que esta olhando
+    if (keysCtrl)
+    {
+        // se há qualquer seta pressionada
+        keysCtrl = false;
+        start = timer.Stamp();
+        arma->Disparo(angle,this);
+    }
+    // senão aguarda o momento certo
+    else if (timer.Elapsed(start, 1.0f))
+    {
+        keysCtrl = true;
+    }
 }
 
 // ---------------------------------------------------------------------------------

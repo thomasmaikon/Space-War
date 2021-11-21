@@ -26,15 +26,17 @@ class Missile : public Object
 private:
     //static Player* & player;            // referência para o player
     Sprite * sprite;                    // sprite do míssil
-    Vector speed;                       // velocidade do míssil    
+    Vector speed;                       // velocidade do míssil  
+    bool naoColidiu;
     
 public:
-    Missile(float angle);               // construtor
+    Missile(float angle,uint positionX, uint positionY);               // construtor
     ~Missile();                         // destrutor
 
     Vector& Speed();                    // retona vetor velocidade
     void Update();                      // atualização
     void Draw();                        // desenho
+    void OnCollision(Object* obj);
 }; 
 
 // ------------------------------------------------------------------------------

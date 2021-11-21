@@ -20,7 +20,7 @@
 
 // ------------------------------------------------------------------------------
 
-Missile::Missile(float angle)
+Missile::Missile(float angle, uint positionX, uint positionY)
 {
     // inicializa sprite
     sprite = new Sprite("Resources/Missile.png");
@@ -33,7 +33,7 @@ Missile::Missile(float angle)
     speed.ScaleTo(15.0f);
     
     // move para posição
-    MoveTo(BasicAI::player->X() + 40 * cos(speed.Radians()), BasicAI::player->Y() - 40 * sin(speed.Radians()));
+    MoveTo(positionX + 40 * cos(speed.Radians()), positionY - 40 * sin(speed.Radians()));
     RotateTo(-speed.Angle() + 90.0f);
 
     // define tipo
@@ -41,6 +41,7 @@ Missile::Missile(float angle)
 
     // incrementa contagem
     ++Hud::missiles;
+    naoColidiu = true;
 }
 
 // ------------------------------------------------------------------------------
@@ -77,6 +78,31 @@ void Missile::Update()
         // remove míssil da cena
         BasicAI::scene->Delete();
     }
+    
+    if(!naoColidiu)
+        BasicAI::scene->Delete();
 }
 
 // -------------------------------------------------------------------------------
+
+void Missile::OnCollision(Object* obj) {
+    
+    switch (obj->Type()) {
+    case Ids::PLAYER: {
+        auto player = (Player*)obj;
+        player->DanoSofrido(15);
+        break;
+    }
+    }
+    
+    const float MaxDistance = 4406;
+    const float BaseVolume = 0.8f;
+    float distance = Point::Distance(Point(x, y), Point(BasicAI::player->X(), BasicAI::player->Y()));
+    float level = (MaxDistance - distance) / MaxDistance;
+    BasicAI::audio->Volume(HITWALL, level * BaseVolume);
+    BasicAI::audio->Play(HITWALL);
+
+    // adiciona explosão na cena
+    BasicAI::scene->Add(new WallHit(x, y), STATIC);
+    naoColidiu = false;
+}

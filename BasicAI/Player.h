@@ -41,6 +41,7 @@ private:
     bool keysPressed;                   // qualquer seta pressionada
     float firingAngle;                  // direção dos disparos
 
+    float vida;
 
 public:
     //static Image * missile;             // imagem do míssil
@@ -57,7 +58,10 @@ public:
     void Draw();                        // desenho
 
     void OnCollision(Object* obj);
+
+    void DanoSofrido(float dano);
+    float Vida();
 }; 
 // ---------------------------------------------------------------------------------
-
+inline float Player::Vida() { return vida; }
 #endif
