@@ -21,7 +21,7 @@ Player::Player()
 {
  
     // definindo tipo de arma, e tipo de projetil
-    arma = new Arma(TipoArma::FOGUETE);
+    arma = new Arma(TipoArma::LASER);
     
     //iniciando a vida do jogador
     vida = 100000.0f;
@@ -187,7 +187,7 @@ void Player::Update()
         if (AxisTimed(AxisRX, AxisRY, 0.150f))
         {
             float ang = Line::Angle(Point(0,0), Point(float(gamepad->Axis(AxisRX)), float(gamepad->Axis(AxisRY))));
-            arma->Disparo(ang, this);
+            arma->Disparo(ang, this, nullptr);
             //BasicAI::audio->Play(FIRE);
             //BasicAI::scene->Add(new Missile(ang), STATIC);
         }
@@ -265,7 +265,7 @@ void Player::Update()
         // dispara míssil
         if (KeysTimed(keysPressed, 0.150f))
         {
-            arma->Disparo(firingAngle, this);
+            arma->Disparo(firingAngle, this, nullptr);
             //BasicAI::scene->Add(new Missile(firingAngle), STATIC);
         }
     }

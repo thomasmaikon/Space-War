@@ -21,7 +21,7 @@
 #include "Controller.h"                 // entrada pelo controle
 #include "Timer.h"                      // controle do tempo
 
-enum TipoArma {FOGUETE = 0};
+enum TipoArma {MISSEL,LASER};
 
 // ---------------------------------------------------------------------------------
 
@@ -38,7 +38,7 @@ public:
     void Update();                      // atualização
     void Draw();                        // desenho
 
-    void Disparo(float angulo, Object* obj);
+    void Disparo(float angulo, Object* obj, Object * inimigo);
     void ModificarArma(uint escolha);
 };
 // ---------------------------------------------------------------------------------

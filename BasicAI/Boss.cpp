@@ -6,7 +6,7 @@
 Boss::Boss()
 {
     // tipo de arma utilizada pelo chefao
-    arma = new Arma(TipoArma::FOGUETE);
+    arma = new Arma(TipoArma::MISSEL);
 
     // sprite do chefao
     sprite = new Sprite("Resources/Player.png");
@@ -114,7 +114,7 @@ void Boss::Update()
         // se há qualquer seta pressionada
         keysCtrl = false;
         start = timer.Stamp();
-        arma->Disparo(angle,this);
+        arma->Disparo(angle,this,BasicAI::player);
     }
     // senão aguarda o momento certo
     else if (timer.Elapsed(start, intervaloDisparo[nivel]))
