@@ -173,6 +173,7 @@
     <ClCompile Include="Green.cpp" />
     <ClCompile Include="Hud.cpp" />
     <ClCompile Include="Image.cpp" />
+    <ClCompile Include="Kamikaze.cpp" />
     <ClCompile Include="Magenta.cpp" />
     <ClCompile Include="Laser.cpp" />
     <ClCompile Include="Missel.cpp" />
@@ -217,6 +218,7 @@
     <ClInclude Include="Green.h" />
     <ClInclude Include="Hud.h" />
     <ClInclude Include="Image.h" />
+    <ClInclude Include="Kamikaze.h" />
     <ClInclude Include="Magenta.h" />
     <ClInclude Include="Laser.h" />
     <ClInclude Include="Missel.h" />

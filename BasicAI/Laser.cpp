@@ -1,19 +1,10 @@
-/**********************************************************************************
-// Missile (Código Fonte)
-// 
-// Criação:     23 Nov 2011
-// Atualização: 11 Nov 2021
-// Compilador:  Visual C++ 2019
-//
-// Descrição:   Define uma classe para um míssil
-//
-**********************************************************************************/
 
 #include "Laser.h"
 #include "WallHit.h"
 #include "BasicAI.h"
 #include "Hud.h"
 #include "Boss.h"
+#include "Kamikaze.h"
 // ------------------------------------------------------------------------------
 
 //Player* & Missile::player = BasicAI::player;        // referência para o player
@@ -23,7 +14,7 @@
 Laser::Laser(float angle, uint positionX, uint positionY)
 {
     // inicializa sprite
-    sprite = new Sprite("Resources/Missile.png");
+    sprite = new Sprite("Resources/ResourcesUnidade3/laser.png");
 
     // cria bounding box
     BBox(new Circle(8));
@@ -98,6 +89,12 @@ void Laser::OnCollision(Object* obj) {
         boss->DanoSofrido(10);
         break;
     }
+    case Ids::KAMIKAZE:{
+        auto kamikaze = (Kamikaze*)obj;
+        kamikaze->DanoSofrido(10);
+        break;
+    }
+    
     }
     
     const float MaxDistance = 4406;

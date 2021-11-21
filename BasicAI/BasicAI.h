@@ -26,7 +26,7 @@
 enum Ids 
 { 
     PLAYER, MISSILE, WALLHIT, BLUE, GREEN, MAGENTA, ORANGE, 
-    THEME, START, FIRE, EXPLODE, HITWALL, EXPLOSION, BLACKHOLE, BOSS
+    THEME, START, FIRE, EXPLODE, HITWALL, EXPLOSION, BLACKHOLE, BOSS, KAMIKAZE
 };
 
 // ------------------------------------------------------------------------------

@@ -1,12 +1,12 @@
 #include "Boss.h"
 #include "BasicAI.h"
 #include "Player.h"
-
+#include "Kamikaze.h"
 // -------------------------------------------------------------------------------
 Boss::Boss()
 {
     // tipo de arma utilizada pelo chefao
-    arma = new Arma(TipoArma::MISSEL);
+    arma = new Arma(TipoArma::LASER);
 
     // sprite do chefao
     sprite = new Sprite("Resources/Player.png");
@@ -21,7 +21,7 @@ Boss::Boss()
     vida[NIVEL::DIFICIL] = 30;
     intervaloDisparo[NIVEL::DIFICIL] = 0.2f;
 
-    nivel = NIVEL::FACIL;
+    nivel = NIVEL::DIFICIL;
 
     
     speed.RotateTo(90.0f);
@@ -114,7 +114,28 @@ void Boss::Update()
         // se há qualquer seta pressionada
         keysCtrl = false;
         start = timer.Stamp();
-        arma->Disparo(angle,this,BasicAI::player);
+        switch (nivel) {
+        case FACIL: {
+            arma->ModificarArma(MISSEL);
+            arma->Disparo(angle,this,BasicAI::player);
+            break;
+        }
+
+        case MODERADO: {
+            arma->ModificarArma(LASER);
+            arma->Disparo(angle, this, BasicAI::player);
+            break;
+        }
+        case DIFICIL: {
+            arma->ModificarArma(LASER);
+            arma->Disparo(angle, this, BasicAI::player);
+            arma->ModificarArma(MISSEL);
+            arma->DisparoPosicao(angle, x-30, y, BasicAI::player);
+            arma->DisparoPosicao(angle, x + 30, y, BasicAI::player);
+            break;
+        }
+        }
+        BasicAI::scene->Add(new Kamikaze(BasicAI::player), MOVING);
     }
     // senão aguarda o momento certo
     else if (timer.Elapsed(start, intervaloDisparo[nivel]))

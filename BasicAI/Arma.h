@@ -39,6 +39,7 @@ public:
     void Draw();                        // desenho
 
     void Disparo(float angulo, Object* obj, Object * inimigo);
+    void DisparoPosicao(float angulo, float posicaoX,float posicaoY, Object* inimigo);
     void ModificarArma(uint escolha);
 };
 // ---------------------------------------------------------------------------------

@@ -27,6 +27,22 @@ void Arma::Disparo(float angulo, Object* obj, Object * inimigo) {
 	}
 }
 
+void Arma::DisparoPosicao(float angulo, float posicaoX, float posicaoY, Object* alvo) {
+	
+	switch (tipoArma) {
+	case TipoArma::MISSEL: {
+		BasicAI::audio->Play(FIRE);
+		BasicAI::scene->Add(new Missel(angulo, posicaoX, posicaoY, alvo), STATIC);
+		break;
+	}
+	case TipoArma::LASER: {
+		BasicAI::audio->Play(FIRE);
+		BasicAI::scene->Add(new Laser(angulo, posicaoX, posicaoY), STATIC);
+		break;
+	}
+	}
+}
+
 
 
 void Arma::ModificarArma(uint escolha) {
