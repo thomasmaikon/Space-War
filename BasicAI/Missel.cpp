@@ -5,6 +5,7 @@
 #include "BasicAI.h"
 #include "Hud.h"
 #include "Boss.h"
+#include "BuffAleatorio.h"
 // ------------------------------------------------------------------------------
 
 //Player* & Missile::player = BasicAI::player;        // referência para o player
@@ -96,7 +97,8 @@ void Missel::OnCollision(Object* obj) {
     switch (obj->Type()) {
     case Ids::PLAYER: {
         auto player = (Player*)obj;
-        player->DanoSofrido(15);
+        if (!player->BufferHabilitado() && player->TipoBuffer() != ESCUDO)
+            player->DanoSofrido(15);
         break;
     }
     case Ids::BOSS: {

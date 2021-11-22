@@ -45,9 +45,10 @@ private:
     float taxaDisparo;
 
     bool buff = false;
+    uint tipoBuff;
     llong startBufferTimer;
     llong tempoBuffer;
-
+    Sprite* bufferImage = nullptr;
     void Resetar();
 
 public:
@@ -69,7 +70,13 @@ public:
     void DanoSofrido(float dano);
     float Vida();
     void Disparo(float taxa);
+
+    bool BufferHabilitado();
+    uint TipoBuffer();
 }; 
 // ---------------------------------------------------------------------------------
 inline float Player::Vida() { return vida; }
+
+inline bool Player::BufferHabilitado() { return buff; }
+inline uint Player::TipoBuffer() { return tipoBuff; }
 #endif

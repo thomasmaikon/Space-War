@@ -12,7 +12,7 @@
 #include "Player.h" 
 #include "BasicAI.h"
 #include "Hud.h"
-
+#include "BuffAleatorio.h"
 //Image * Player::missile = nullptr;
 
 // -------------------------------------------------------------------------------
@@ -308,6 +308,9 @@ void Player::Draw()
 {
     sprite->Draw(x, y, Layer::MIDDLE, 1.0f, -speed.Angle() + 90.0f);
     tail->Draw(Layer::LOWER, 1.0f);
+
+    if (buff && tipoBuff == ESCUDO)
+        bufferImage->Draw(x, y);
 }
 
 // -------------------------------------------------------------------------------
@@ -315,8 +318,14 @@ void Player::Draw()
 void Player::OnCollision(Object* obj)
 {   
         if(obj->Type() == BUFFER){
+            auto buffer = (BuffAleatorio*)obj;
             startBufferTimer = timer.Stamp();
             buff = true;
+            tipoBuff = DISPARO;
+            if (buffer->Tipo() == ESCUDO) {
+                tipoBuff = ESCUDO;
+                bufferImage = buffer->Escudo();
+            }
         }
 }
 
@@ -336,5 +345,6 @@ void Player::Disparo(float taxa) {
 void Player::Resetar() {
     if (timer.Elapsed(startBufferTimer, tempoBuffer)) {
         taxaDisparo = 0.150f;
+        buff = false;
     }
 }

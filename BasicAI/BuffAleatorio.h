@@ -5,7 +5,7 @@
 #include "Object.h"
 #include "Sprite.h"
 #include "Timer.h"
-enum BUFF {DISPARO};
+enum BUFF {DISPARO, ESCUDO};
 
 class BuffAleatorio : public Object {
 private:
@@ -20,6 +20,8 @@ private:
 	void GerarNovoBuff();
 	void NovaPosicao();
 
+	uint tipo;
+
 public:
 	BuffAleatorio();
 	~BuffAleatorio();
@@ -27,7 +29,11 @@ public:
 	void Update();
 	void Draw();
 	void OnCollision(Object* obj);
-	
+	uint Tipo();
+
+	Sprite* Escudo();
 };
 
+inline uint BuffAleatorio::Tipo() { return tipo; }
+inline Sprite* BuffAleatorio::Escudo() { return new Sprite("Resources/ResourcesUnidade3/bolha.png");}
 #endif

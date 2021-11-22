@@ -23,7 +23,16 @@ BuffAleatorio::~BuffAleatorio() {
 void BuffAleatorio::OnCollision(Object* obj) {
 	if (obj->Type() == Ids::PLAYER) {
 		auto player = (Player*)obj;
-		player->Disparo(2);
+		
+		switch (tipo)
+		{
+		case BUFF::DISPARO: {
+			player->Disparo(2);
+			break;
+		}
+
+		}
+		
 		coletado = true;
 		start = timer.Stamp();
 		MoveTo(-50000, -50000);
@@ -48,13 +57,18 @@ void BuffAleatorio::Draw() {
 }
 
 void BuffAleatorio::GerarNovoBuff() {
-	int escolha = 0;
-	switch (escolha)
+	tipo = RandI(0,1).Rand();
+
+	switch (tipo)
 	{
-	case 0: {
-		buff = new Sprite("Resources/ResourcesUnidade3/buffDisparo.png");
-		break;
-	}
+		case BUFF::DISPARO: {
+			buff = new Sprite("Resources/ResourcesUnidade3/buffDisparo.png");
+			break;
+		}
+		case BUFF::ESCUDO: {
+			buff = new Sprite("Resources/ResourcesUnidade3/escudo.png");
+			break;
+		}
 	}
 }
 
