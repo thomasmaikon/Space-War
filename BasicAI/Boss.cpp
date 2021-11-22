@@ -150,7 +150,7 @@ void Boss::Update()
             break;
         }
         }
-        BasicAI::scene->Add(new Kamikaze(BasicAI::player), MOVING);
+        //BasicAI::scene->Add(new Kamikaze(BasicAI::player), MOVING);
     }
     // senão aguarda o momento certo
     else if (timer.Elapsed(start, intervaloDisparo[nivel]))
