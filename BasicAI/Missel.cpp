@@ -80,7 +80,9 @@ void Missel::Update()
 
     // atualiza a direcao que o objeto esta perseguindo
     float angle = Line::Angle(Point(x, y), Point(alvo->X(), alvo->Y()));
-    speed.RotateTo(angle);
+    float spaceBetween = Point::Distance(Point(x, y), Point(alvo->X(), alvo->Y()));
+    if(spaceBetween <= 150)
+        speed.RotateTo(angle);
     RotateTo(-speed.Angle() + 90.0f);
 
     if (!naoColidiu || timer.Elapsed(start,2.0f))

@@ -32,12 +32,12 @@ void Arma::DisparoPosicao(float angulo, float posicaoX, float posicaoY, Object* 
 	switch (tipoArma) {
 	case TipoArma::MISSEL: {
 		BasicAI::audio->Play(FIRE);
-		BasicAI::scene->Add(new Missel(angulo, posicaoX, posicaoY, alvo), STATIC);
+		BasicAI::scene->Add(new Missel(angulo, posicaoX, posicaoY, alvo), MOVING);
 		break;
 	}
 	case TipoArma::LASER: {
 		BasicAI::audio->Play(FIRE);
-		BasicAI::scene->Add(new Laser(angulo, posicaoX, posicaoY), STATIC);
+		BasicAI::scene->Add(new Laser(angulo, posicaoX, posicaoY), MOVING);
 		break;
 	}
 	}

@@ -12,7 +12,7 @@ Boss::Boss()
     sprite = new Sprite("Resources/Player.png");
     
     // Inicializa o chefao
-    vida[NIVEL::FACIL] = 10;
+    vida[NIVEL::FACIL] = 200;
     intervaloDisparo[NIVEL::FACIL] = 2.0f;
     
     vida[NIVEL::MODERADO] = 20;
@@ -21,7 +21,7 @@ Boss::Boss()
     vida[NIVEL::DIFICIL] = 30;
     intervaloDisparo[NIVEL::DIFICIL] = 0.2f;
 
-    nivel = NIVEL::DIFICIL;
+    nivel = NIVEL::FACIL;
 
     
     speed.RotateTo(90.0f);
@@ -117,7 +117,22 @@ void Boss::Update()
         switch (nivel) {
         case FACIL: {
             arma->ModificarArma(MISSEL);
-            arma->Disparo(angle,this,BasicAI::player);
+           
+            if (vida[nivel] <= 50) {
+                arma->DisparoPosicao(angle, x - 30, y-20, BasicAI::player);
+                arma->DisparoPosicao(angle, x + 30, y+20, BasicAI::player);
+                intervaloDisparo[NIVEL::FACIL] = 0.7f;
+            }
+            else if (vida[nivel] <= 100) {
+                // acionar voz
+                float randX = RandF(x - 15.0f, x + 30.0f).Rand();
+                arma->DisparoPosicao(angle, randX, y, BasicAI::player);
+                intervaloDisparo[NIVEL::FACIL] = 1.2f;
+            }
+            else {
+                arma->DisparoPosicao(angle, x - 30, y - 20, BasicAI::player);
+                arma->DisparoPosicao(angle, x + 30, y + 20, BasicAI::player);
+            }
             break;
         }
 
@@ -135,7 +150,7 @@ void Boss::Update()
             break;
         }
         }
-        BasicAI::scene->Add(new Kamikaze(BasicAI::player), MOVING);
+       // BasicAI::scene->Add(new Kamikaze(BasicAI::player), MOVING);
     }
     // senão aguarda o momento certo
     else if (timer.Elapsed(start, intervaloDisparo[nivel]))

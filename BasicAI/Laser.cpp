@@ -91,7 +91,7 @@ void Laser::OnCollision(Object* obj) {
     }
     case Ids::KAMIKAZE:{
         auto kamikaze = (Kamikaze*)obj;
-        kamikaze->DanoSofrido(10);
+        kamikaze->DanoSofrido(15);
         break;
     }
     
