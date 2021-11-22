@@ -161,6 +161,7 @@
     <ClCompile Include="Background.cpp" />
     <ClCompile Include="Blue.cpp" />
     <ClCompile Include="Boss.cpp" />
+    <ClCompile Include="BuffAleatorio.cpp" />
     <ClCompile Include="Controller.cpp" />
     <ClCompile Include="Delay.cpp" />
     <ClCompile Include="Engine.cpp" />
@@ -206,6 +207,7 @@
     <ClInclude Include="BlackHole.h" />
     <ClInclude Include="Blue.h" />
     <ClInclude Include="Boss.h" />
+    <ClInclude Include="BuffAleatorio.h" />
     <ClInclude Include="Controller.h" />
     <ClInclude Include="Delay.h" />
     <ClInclude Include="Engine.h" />

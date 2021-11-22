@@ -16,6 +16,7 @@
 #include "Delay.h"
 #include "BlackHole.h"
 #include "Boss.h"
+#include "BuffAleatorio.h"
 // ------------------------------------------------------------------------------
 
 Player * BasicAI::player  = nullptr;
@@ -55,7 +56,7 @@ void BasicAI::Init()
     audio->Volume(GREEN, 0.75f);
 
     blackHole = new BlackHole(600,600);
-
+    BuffAleatorio * buff = new BuffAleatorio();
     // carrega imagens das geometrias
   /*  blue = new Image("Resources/Blue.png");
     green   = new Image("Resources/Green.png");
@@ -72,7 +73,8 @@ void BasicAI::Init()
     scene->Add(player, MOVING);
     scene->Add(new Delay(), STATIC);
     scene->Add(blackHole, STATIC);
-    scene->Add(new Boss(), MOVING);
+    scene->Add(buff, STATIC);
+//scene->Add(new Boss(), MOVING);
 
     // ----------------------
     // inicializa a viewport

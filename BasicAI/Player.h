@@ -42,6 +42,13 @@ private:
     float firingAngle;                  // direção dos disparos
 
     float vida;
+    float taxaDisparo;
+
+    bool buff = false;
+    llong startBufferTimer;
+    llong tempoBuffer;
+
+    void Resetar();
 
 public:
     //static Image * missile;             // imagem do míssil
@@ -61,6 +68,7 @@ public:
 
     void DanoSofrido(float dano);
     float Vida();
+    void Disparo(float taxa);
 }; 
 // ---------------------------------------------------------------------------------
 inline float Player::Vida() { return vida; }

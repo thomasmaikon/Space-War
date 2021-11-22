@@ -22,13 +22,16 @@ Player::Player()
  
     // definindo tipo de arma, e tipo de projetil
     arma = new Arma(TipoArma::LASER);
-    
+    taxaDisparo = 0.150f;
+
     //iniciando a vida do jogador
     vida = 100000.0f;
 
     // inicializa controle
     gamepad = new Controller();
     gamepadOn = gamepad->Initialize();
+
+    tempoBuffer = 7.0f;
 
     // configuração do objeto
     sprite = new Sprite("Resources/Player.png");
@@ -263,7 +266,7 @@ void Player::Update()
         }
 
         // dispara míssil
-        if (KeysTimed(keysPressed, 0.150f))
+        if (KeysTimed(keysPressed, taxaDisparo))
         {
             arma->Disparo(firingAngle, this, nullptr);
             //BasicAI::scene->Add(new Missile(firingAngle), STATIC);
@@ -285,6 +288,8 @@ void Player::Update()
     Hud::particles -= tailCount;
     tailCount = tail->Size();
     Hud::particles += tailCount;
+
+    Resetar();
 
     // restringe a área do jogo
     if (x < 50)
@@ -309,11 +314,27 @@ void Player::Draw()
 
 void Player::OnCollision(Object* obj)
 {   
-    
+        if(obj->Type() == BUFFER){
+            startBufferTimer = timer.Stamp();
+            buff = true;
+        }
 }
 
 // -------------------------------------------------------------------------------
 
 void Player::DanoSofrido(float dano) {
     vida = vida - dano;
+}
+
+// -------------------------------------------------------------------------------
+
+void Player::Disparo(float taxa) {
+    taxaDisparo = taxaDisparo / taxa;
+}
+
+// -------------------------------------------------------------------------------
+void Player::Resetar() {
+    if (timer.Elapsed(startBufferTimer, tempoBuffer)) {
+        taxaDisparo = 0.150f;
+    }
 }
