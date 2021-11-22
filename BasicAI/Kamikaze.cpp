@@ -9,7 +9,7 @@ Kamikaze::Kamikaze(Object * obj)
     arma = new Arma(TipoArma::LASER);
 
     // sprite do chefao
-    sprite = new Sprite("Resources/Player.png");
+    sprite = new Sprite("Resources/ResourcesUnidade3/kamikaze.png");
 
     // Inicializa o chefao
     vida = 50;

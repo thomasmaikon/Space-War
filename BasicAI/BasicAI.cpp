@@ -44,19 +44,22 @@ void BasicAI::Init()
     audio->Add(MAGENTA, "Resources/Magenta.wav", 2);
     audio->Add(BLUE, "Resources/Blue.wav", 2);
     audio->Add(GREEN, "Resources/Green.wav", 2);
+    audio->Add(BATTLE, "Resources/ResourcesUnidade3/fight.wav", 1);
 
     // ajusta volumes
-    audio->Volume(START, 0.30f);
-    audio->Volume(THEME, 0.60f);
-    audio->Volume(FIRE, 0.10f);
-    audio->Volume(EXPLODE, 0.15f);
-    audio->Volume(ORANGE, 0.90f);
-    audio->Volume(MAGENTA, 0.40f);
-    audio->Volume(BLUE, 0.20f);
-    audio->Volume(GREEN, 0.75f);
+   // audio->Volume(START, 0.30f);
+   // audio->Volume(THEME, 0.60f);
+   // audio->Volume(FIRE, 0.10f);
+   // audio->Volume(EXPLODE, 0.15f);
+   // audio->Volume(ORANGE, 0.90f);
+   // audio->Volume(MAGENTA, 0.40f);
+   // audio->Volume(BLUE, 0.20f);
+   // audio->Volume(GREEN, 0.75f);
 
+    
     blackHole = new BlackHole(600,600);
     BuffAleatorio * buff = new BuffAleatorio();
+   
     // carrega imagens das geometrias
   /*  blue = new Image("Resources/Blue.png");
     green   = new Image("Resources/Green.png");
@@ -64,7 +67,7 @@ void BasicAI::Init()
     orange  = new Image("Resources/Orange.png");*/
 
     // carrega/incializa objetos
-    backg   = new Background("Resources/Space.jpg");
+    backg   = new Background("Resources/ResourcesUnidade3/BackGround.png");
     player  = new Player();
     scene   = new Scene();  
     hud     = new Hud();
@@ -74,7 +77,7 @@ void BasicAI::Init()
     scene->Add(new Delay(), STATIC);
     scene->Add(blackHole, STATIC);
     scene->Add(buff, STATIC);
-//scene->Add(new Boss(), MOVING);
+    scene->Add(new Boss(), MOVING);
 
     // ----------------------
     // inicializa a viewport
@@ -89,6 +92,8 @@ void BasicAI::Init()
     viewport.right = viewport.left + window->Width();
     viewport.top = 0.0f + dify;
     viewport.bottom = viewport.top + window->Height();
+
+    audio->Play(BATTLE, true);
 }
 
 // ------------------------------------------------------------------------------

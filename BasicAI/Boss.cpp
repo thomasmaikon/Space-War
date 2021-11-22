@@ -9,7 +9,7 @@ Boss::Boss()
     arma = new Arma(TipoArma::LASER);
 
     // sprite do chefao
-    sprite = new Sprite("Resources/Player.png");
+    sprite = new Sprite("Resources/ResourcesUnidade3/boss.png");
     
     // Inicializa o chefao
     vida[NIVEL::FACIL] = 200;
@@ -150,7 +150,7 @@ void Boss::Update()
             break;
         }
         }
-       // BasicAI::scene->Add(new Kamikaze(BasicAI::player), MOVING);
+        BasicAI::scene->Add(new Kamikaze(BasicAI::player), MOVING);
     }
     // senão aguarda o momento certo
     else if (timer.Elapsed(start, intervaloDisparo[nivel]))
@@ -174,11 +174,8 @@ void Boss::Draw()
 
 void Boss::OnCollision(Object* obj)
 {
-    switch (nivel)
-    {
-    default:
-        break;
-    }
+  
+     
 }
 
 // -------------------------------------------------------------------------------

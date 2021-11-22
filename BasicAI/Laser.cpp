@@ -53,7 +53,7 @@ void Laser::Update()
     // move míssel com vetor resultante
     Translate(speed.XComponent() * 90.0f * gameTime, -speed.YComponent() * 90.0f * gameTime);
 
-    // remove míssil da cena se ele sair da área de jogo
+    /*// remove míssil da cena se ele sair da área de jogo
     if (x > game->Width() - 50 || x < 50 || y > game->Height() - 50 || y < 50)
     {
         // volume do som de destruição depende da distância para o jogador
@@ -69,7 +69,7 @@ void Laser::Update()
 
         // remove míssil da cena
         BasicAI::scene->Delete();
-    }
+    }*/
     
     if(!naoColidiu)
         BasicAI::scene->Delete();

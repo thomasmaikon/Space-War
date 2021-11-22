@@ -34,7 +34,7 @@ Player::Player()
     tempoBuffer = 7.0f;
 
     // configuração do objeto
-    sprite = new Sprite("Resources/Player.png");
+    sprite = new Sprite("Resources/ResourcesUnidade3/player.png");
     //missile = new Image("Resources/Missile.png");
     speed.RotateTo(90.0f);
     speed.ScaleTo(0.0f);
