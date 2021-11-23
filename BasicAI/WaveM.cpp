@@ -41,7 +41,7 @@ void WaveM::Update()
     if (timer.Elapsed(delay) && Hud::magentas < 5)
     {
         // toca som de nova onda
-        BasicAI::audio->Play(MAGENTA);
+     //   BasicAI::audio->Play(MAGENTA);
 
         // adiciona novo inimigo
         BasicAI::scene->Add(new Magenta(pX, pY, BasicAI::player), MOVING);

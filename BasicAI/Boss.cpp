@@ -2,6 +2,7 @@
 #include "BasicAI.h"
 #include "Player.h"
 #include "Kamikaze.h"
+#include "Vector.h"
 // -------------------------------------------------------------------------------
 Boss::Boss()
 {
@@ -26,8 +27,18 @@ Boss::Boss()
     
     speed.RotateTo(90.0f);
     speed.ScaleTo(0.0f);
-    BBox(new Circle(18.0f));
-    MoveTo(300, 300);
+    
+    Point vertex[16] =
+    {
+        Point(-187,10), Point(-130,-187), Point(-127,10), Point(-70,35),
+        Point(-60,-80), Point(-40,-120), Point(0,-130), Point(40,-120),
+        Point(60,-80), Point(70,35), Point(127,10), Point(130,-187), Point(187,10), Point(50,187),
+        Point(-50,187), Point(-187,10)    
+    };
+
+    BBox(new Poly(vertex, 16));
+
+    MoveTo(game->CenterX() -200 , game->CenterY() - 100);
     
     type = Ids::BOSS;
 
@@ -95,7 +106,7 @@ void Boss::Update()
     // ajusta ângulo do vetor
     float angle = Line::Angle(Point(x, y), Point(BasicAI::player->X(), BasicAI::player->Y()));
     speed.RotateTo(angle);
-   
+    RotateTo(-angle + 90.0);
     Move(Vector(angle, 10 * gameTime));
 
     // movimenta objeto pelo seu vetor velocidade
@@ -119,7 +130,7 @@ void Boss::Update()
             arma->ModificarArma(MISSEL);
            
             if (vida[nivel] <= 50) {
-                arma->DisparoPosicao(angle, x - 30, y-20, BasicAI::player);
+                arma->DisparoPosicao(angle, x + 50*cos(speed.Radians()), y - 20 * sin(speed.Radians()), BasicAI::player);
                 arma->DisparoPosicao(angle, x + 30, y+20, BasicAI::player);
                 intervaloDisparo[NIVEL::FACIL] = 0.7f;
             }
@@ -130,8 +141,8 @@ void Boss::Update()
                 intervaloDisparo[NIVEL::FACIL] = 1.2f;
             }
             else {
-                arma->DisparoPosicao(angle, x - 30, y - 20, BasicAI::player);
-                arma->DisparoPosicao(angle, x + 30, y + 20, BasicAI::player);
+          //      arma->DisparoPosicao(angle, x - 30, y - 20, BasicAI::player);
+          //      arma->DisparoPosicao(angle, x + 30, y + 20, BasicAI::player);
             }
             break;
         }
@@ -145,12 +156,13 @@ void Boss::Update()
             arma->ModificarArma(LASER);
             arma->Disparo(angle, this, BasicAI::player);
             arma->ModificarArma(MISSEL);
-            arma->DisparoPosicao(angle, x-30, y, BasicAI::player);
-            arma->DisparoPosicao(angle, x + 30, y, BasicAI::player);
+            arma->DisparoPosicao(angle, x + (100 + 50) * cos(speed.Radians()), y - 187 * sin(speed.Radians()), BasicAI::player);
+            //arma->DisparoPosicao(angle, x-100, y+187, BasicAI::player);
+            arma->DisparoPosicao(angle, x + (100 -50) * cos(speed.Radians()), y-187, BasicAI::player);
             break;
         }
         }
-        //BasicAI::scene->Add(new Kamikaze(BasicAI::player), MOVING);
+        BasicAI::scene->Add(new Kamikaze(BasicAI::player), MOVING);
     }
     // senão aguarda o momento certo
     else if (timer.Elapsed(start, intervaloDisparo[nivel]))
@@ -167,7 +179,7 @@ void Boss::Update()
 
 void Boss::Draw()
 {
-    sprite->Draw(x, y, Layer::MIDDLE, 1.0f, -speed.Angle() + 90.0f);
+    sprite->Draw(x, y, Layer::MIDDLE, 1.0f, (-speed.Angle() + 90.0f));
 }
 
 // -------------------------------------------------------------------------------

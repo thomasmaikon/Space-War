@@ -15,18 +15,20 @@
 // ------------------------------------------------------------------------------
 
 #include "Game.h"
-#include "Audio.h"
 #include "Scene.h"
 #include "Background.h"
 #include "Player.h"
 #include "Hud.h"
 #include "BlackHole.h"
+#include "Font.h"
+#include <sstream>
+using namespace std;
 // ------------------------------------------------------------------------------
 
 enum Ids 
 { 
     PLAYER, MISSILE, WALLHIT, BLUE, GREEN, MAGENTA, ORANGE, 
-    THEME, START, FIRE, EXPLODE, HITWALL, EXPLOSION, BLACKHOLE, BOSS, KAMIKAZE, BUFFER, BATTLE
+    THEME, START, FIRE, EXPLODE, HITWALL, EXPLOSION, BLACKHOLE, BOSS, KAMIKAZE, BUFFER
 };
 
 // ------------------------------------------------------------------------------
@@ -37,10 +39,15 @@ private:
     Background * backg = nullptr;   // pano de fundo
     Hud * hud = nullptr;            // heads up display
     bool viewBBox = false;          // visualização das bouding boxes
+    bool started = false;
+    bool seletor = 0;
+
+    stringstream txt;
 
 public:
+    static Font* gameFont;
     static Player * player;         // ponteiro para o jogador
-    static Audio * audio;           // sitema de áudio
+   // static Audio * audio;           // sitema de áudio
     static Scene * scene;           // cena do jogo
     static BlackHole* blackHole;
 

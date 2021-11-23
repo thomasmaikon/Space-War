@@ -49,7 +49,7 @@ void WaveO::Update()
         if (timer.Elapsed(waveDelay))
         {
             // toca som de nova onda
-            BasicAI::audio->Play(ORANGE);
+      //      BasicAI::audio->Play(ORANGE);
 
             // origem da onda é aleatória
             switch (position.Rand())

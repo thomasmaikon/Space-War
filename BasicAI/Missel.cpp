@@ -18,7 +18,11 @@ Missel::Missel(float angle,float inicialX, float inicialY ,Object * obj)
     sprite = new Sprite("Resources/ResourcesUnidade3/missel.png");
 
     // cria bounding box
-    BBox(new Circle(8));
+    BBox(new Rect(
+        -1.0f * sprite->Width() / 2.0f,
+        -1.0f * sprite->Height() / 2.0f,
+        sprite->Width() / 2.0f,
+        sprite->Height() / 2.0f));
 
     // inicializa velocidade
     speed.RotateTo(angle);
@@ -112,8 +116,8 @@ void Missel::OnCollision(Object* obj) {
     const float BaseVolume = 0.8f;
     float distance = Point::Distance(Point(x, y), Point(BasicAI::player->X(), BasicAI::player->Y()));
     float level = (MaxDistance - distance) / MaxDistance;
-    BasicAI::audio->Volume(HITWALL, level * BaseVolume);
-    BasicAI::audio->Play(HITWALL);
+    //BasicAI::audio->Volume(HITWALL, level * BaseVolume);
+    //BasicAI::audio->Play(HITWALL);
 
     // adiciona explosão na cena
     BasicAI::scene->Add(new WallHit(x, y), STATIC);

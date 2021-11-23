@@ -4,6 +4,9 @@
 
 #include "Game.h"
 #include "Engine.h"
+#include "Audio.h"
+
+enum OTHERS{ BATTLE };
 
 class SpaceWar : public Game {
 
@@ -11,7 +14,8 @@ private:
     static Game* level;
 
 public:
-
+    static Audio* audio;
+    
     void Init();                    
     void Update();                  
     void Draw();                    

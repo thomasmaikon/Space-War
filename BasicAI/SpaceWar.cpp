@@ -4,8 +4,12 @@
 #include "Resources.h"
 #include "BasicAI.h"
 Game* SpaceWar::level = nullptr;
+Audio* SpaceWar::audio = nullptr;
 
 void SpaceWar::Init() {
+    audio = new Audio();
+    audio->Add(5, "Resources/ResourcesUnidade3/fight.wav", 1);
+    
     level = new Inicio();
     level->Init();
 }

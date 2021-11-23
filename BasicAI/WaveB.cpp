@@ -46,7 +46,7 @@ void WaveB::Update()
         if (counter > 0)
         {
             // toca som de nova onda
-            BasicAI::audio->Play(BLUE);
+      //      BasicAI::audio->Play(BLUE);
 
             // adiciona nova inimigo
             BasicAI::scene->Add(new Blue(pX, pY, BasicAI::player), MOVING);

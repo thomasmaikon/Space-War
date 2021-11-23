@@ -42,7 +42,7 @@ void WaveG::Update()
         if (counter > 0)
         {
             // toca som de nova onda
-            BasicAI::audio->Play(GREEN);
+       //     BasicAI::audio->Play(GREEN);
 
             // adiciona nova inimigo
             BasicAI::scene->Add(new Green(50, 50, BasicAI::player), MOVING);

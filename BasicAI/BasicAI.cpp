@@ -17,10 +17,11 @@
 #include "BlackHole.h"
 #include "Boss.h"
 #include "BuffAleatorio.h"
+#include "SpaceWar.h"
 // ------------------------------------------------------------------------------
 
 Player * BasicAI::player  = nullptr;
-Audio  * BasicAI::audio   = nullptr;
+//Audio  * BasicAI::audio   = nullptr;
 Scene  * BasicAI::scene   = nullptr;
 bool     BasicAI::viewHUD = false;
 Image  * BasicAI::blue    = nullptr;
@@ -29,22 +30,31 @@ Image  * BasicAI::magenta = nullptr;
 Image  * BasicAI::orange  = nullptr;
 BlackHole* BasicAI::blackHole = nullptr;
 
+Font* BasicAI::gameFont = nullptr;     // fonte do jogo
+
 // ------------------------------------------------------------------------------
 
 void BasicAI::Init() 
 {
+
+    gameFont = new Font("Resources/ResourcesUnidade3/Tahoma16.png");
+    gameFont->Spacing("Resources/ResourcesUnidade3/Tahoma16.dat");
+    
+    //SpaceWar::audio->Add(BATTLE, "Resources/Start.wav");
+    //SpaceWar::audio->Volume(5, 1.0f);
+    
     // cria sistema de áudio
-    audio = new Audio();
-    audio->Add(START, "Resources/Start.wav");
-    audio->Add(THEME, "Resources/Theme.wav");
-    audio->Add(FIRE, "Resources/Fire.wav", 2);
-    audio->Add(HITWALL, "Resources/Hitwall.wav", 5);
-    audio->Add(EXPLODE, "Resources/Explode.wav", 3);
-    audio->Add(ORANGE, "Resources/Orange.wav", 1);
-    audio->Add(MAGENTA, "Resources/Magenta.wav", 2);
-    audio->Add(BLUE, "Resources/Blue.wav", 2);
-    audio->Add(GREEN, "Resources/Green.wav", 2);
-    audio->Add(BATTLE, "Resources/ResourcesUnidade3/fight.wav", 1);
+   // audio = new Audio();
+    //audio->Add(START, "Resources/Start.wav");
+    //audio->Add(THEME, "Resources/Theme.wav");
+    //audio->Add(FIRE, "Resources/Fire.wav", 2);
+    //audio->Add(HITWALL, "Resources/Hitwall.wav", 5);
+    //audio->Add(EXPLODE, "Resources/Explode.wav", 3);
+    //audio->Add(ORANGE, "Resources/Orange.wav", 1);
+    //audio->Add(MAGENTA, "Resources/Magenta.wav", 2);
+    //audio->Add(BLUE, "Resources/Blue.wav", 2);
+    //audio->Add(GREEN, "Resources/Green.wav", 2);
+
 
     // ajusta volumes
    // audio->Volume(START, 0.30f);
@@ -93,67 +103,85 @@ void BasicAI::Init()
     viewport.top = 0.0f + dify;
     viewport.bottom = viewport.top + window->Height();
 
-    audio->Play(BATTLE, true);
+   
 }
 
 // ------------------------------------------------------------------------------
 
 void BasicAI::Update()
 {
-    // sai com o pressionamento da tecla ESC
-    if (window->KeyDown(VK_ESCAPE))
-        window->Close();
 
-    if (BasicAI::player->Vida() <= 0) {
-        window->Close();
+    if (started == false) {
+        if (window->KeyPress(VK_LEFT)) {
+            seletor = 0;
+        }
+        if (window->KeyPress(VK_RIGHT)) {
+            seletor = 1;
+        }
+        
+        if (window->KeyPress(VK_RETURN))
+            if (seletor)
+                window->Close();
+            else
+                started = true;
+
     }
-    // atualiza cena e calcula colisões
-    scene->Update();
-    scene->CollisionDetection();
+    else {
+        // sai com o pressionamento da tecla ESC
+        if (window->KeyDown(VK_ESCAPE))
+            window->Close();
 
-    // ---------------------------------------------------
-    // atualiza a viewport
-    // ---------------------------------------------------
+        if (BasicAI::player->Vida() <= 0) {
+            window->Close();
+        }
+        // atualiza cena e calcula colisões
+        scene->Update();
+        scene->CollisionDetection();
 
-    viewport.left   = player->X() - window->CenterX();
-    viewport.right  = player->X() + window->CenterX();
-    viewport.top    = player->Y() - window->CenterY();
-    viewport.bottom = player->Y() + window->CenterY();
-            
-    if (viewport.left < 0)
-    {
-        viewport.left  = 0;
-        viewport.right = window->Width();
+        // ---------------------------------------------------
+        // atualiza a viewport
+        // ---------------------------------------------------
+
+        viewport.left = player->X() - window->CenterX();
+        viewport.right = player->X() + window->CenterX();
+        viewport.top = player->Y() - window->CenterY();
+        viewport.bottom = player->Y() + window->CenterY();
+
+        if (viewport.left < 0)
+        {
+            viewport.left = 0;
+            viewport.right = window->Width();
+        }
+        else if (viewport.right > game->Width())
+        {
+            viewport.left = game->Width() - window->Width();
+            viewport.right = game->Width();
+        }
+
+        if (viewport.top < 0)
+        {
+            viewport.top = 0;
+            viewport.bottom = window->Height();
+        }
+        else if (viewport.bottom > game->Height())
+        {
+            viewport.top = game->Height() - window->Height();
+            viewport.bottom = game->Height();
+        }
+
+        // ---------------------------------------------------
+
+        // atualiza o painel de informações
+        hud->Update();
+
+        // ativa ou desativa a bounding box
+        if (window->KeyPress('B'))
+            viewBBox = !viewBBox;
+
+        // ativa ou desativa o heads up display
+        if (window->KeyPress('H'))
+            viewHUD = !viewHUD;
     }
-    else if (viewport.right > game->Width())
-    {  
-        viewport.left  = game->Width() - window->Width();
-         viewport.right = game->Width();
-    }
-                  
-    if (viewport.top < 0)
-    {
-        viewport.top  = 0;
-        viewport.bottom = window->Height();
-    }
-    else if (viewport.bottom > game->Height())
-    {
-        viewport.top = game->Height() - window->Height();
-        viewport.bottom = game->Height();
-    }
-
-    // ---------------------------------------------------
-
-    // atualiza o painel de informações
-    hud->Update();
-
-    // ativa ou desativa a bounding box
-    if (window->KeyPress('B'))
-        viewBBox = !viewBBox;
-
-    // ativa ou desativa o heads up display
-    if (window->KeyPress('H'))
-        viewHUD = !viewHUD;
 } 
 
 // ------------------------------------------------------------------------------
@@ -163,23 +191,36 @@ void BasicAI::Draw()
     // desenha pano de fundo
     backg->Draw(viewport);
 
-    // desenha a cena
-    scene->Draw();
+    if (started == false) {
+        txt.str("");
+        txt << " JOGAR ";
+        gameFont->Draw(window->Width() / 2 - 45, window->Height() / 2 + 60, txt.str(), (seletor == 0) ? Color{ 0.0f,0.5f,1.0f,1.0f } : Color{ 1.0f,1.0f,1.0f,1.0f });
 
-    // desenha o painel de informações
-    if (viewHUD)
-        hud->Draw();
+        txt.str("");
+        txt << " SAIR ";
+        gameFont->Draw(window->Width() / 2 + 45, window->Height() / 2 + 60, txt.str(), (seletor == 1) ? Color{ 0.0f,0.5f,1.0f,1.0f } : Color{ 1.0f,1.0f,1.0f,1.0f });
 
-    // desenha bounding box
-    if (viewBBox)
-        scene->DrawBBox();
+    }
+    else {
+        // desenha a cena
+        scene->Draw();
+
+        // desenha o painel de informações
+        if (viewHUD)
+            hud->Draw();
+
+        // desenha bounding box
+        if (viewBBox)
+            scene->DrawBBox();
+    }
+
 }
 
 // ------------------------------------------------------------------------------
 
 void BasicAI::Finalize()
 {
-    delete audio;
+    //delete audio;
     delete hud;
     delete scene;
     delete backg;

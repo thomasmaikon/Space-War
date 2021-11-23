@@ -269,6 +269,7 @@ void Player::Update()
         if (KeysTimed(keysPressed, taxaDisparo))
         {
             arma->Disparo(firingAngle, this, nullptr);
+            arma->DisparoPosicao(firingAngle, x + 50 * cos(speed.Radians()), y - 50 * sin(speed.Radians()), nullptr);
             //BasicAI::scene->Add(new Missile(firingAngle), STATIC);
         }
     }
