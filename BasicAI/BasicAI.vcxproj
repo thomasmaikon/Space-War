@@ -175,7 +175,6 @@
     <ClCompile Include="Hud.cpp" />
     <ClCompile Include="Image.cpp" />
     <ClCompile Include="Inicio.cpp" />
-    <ClCompile Include="Jogo.cpp" />
     <ClCompile Include="Kamikaze.cpp" />
     <ClCompile Include="Magenta.cpp" />
     <ClCompile Include="Laser.cpp" />
@@ -189,6 +188,7 @@
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="Sound.cpp" />
+    <ClCompile Include="SpaceWar.cpp" />
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="TileSet.cpp" />
@@ -236,6 +236,7 @@
     <ClInclude Include="Resources.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="Sound.h" />
+    <ClInclude Include="SpaceWar.h" />
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="TileSet.h" />

@@ -6,17 +6,31 @@
 
 #include "Background.h"
 #include "Game.h"
+#include "Engine.h"
+#include "Font.h"
+#include <sstream>
+using namespace std;
+
+
+enum MENU { JOGAR, SAIR };
 
 class Inicio : public Game
 {
 private:
-    Background* backg = nullptr;   // pano de fundo
-    
+    Background* backg = nullptr;
+    // static Game* level;            
+    uint seletor;
+
+    stringstream txt;
+
 public:
-    void Init();                    // inicialização
-    void Update();                  // atualização
-    void Draw();                    // desenho
-    void Finalize();                // finalização
+    static Font* gameFont;
+
+
+    void Init();
+    void Update();
+    void Draw();
+    void Finalize();
 };
 
 #endif

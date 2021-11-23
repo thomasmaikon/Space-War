@@ -162,7 +162,7 @@
     <ClCompile Include="Inicio.cpp">
       <Filter>Game\Arquivos de Origem</Filter>
     </ClCompile>
-    <ClCompile Include="Jogo.cpp">
+    <ClCompile Include="SpaceWar.cpp">
       <Filter>Game\Arquivos de Origem</Filter>
     </ClCompile>
   </ItemGroup>
@@ -303,6 +303,9 @@
       <Filter>Game\Arquivos de Cabeçalho</Filter>
     </ClInclude>
     <ClInclude Include="Inicio.h">
+      <Filter>Game\Arquivos de Cabeçalho</Filter>
+    </ClInclude>
+    <ClInclude Include="SpaceWar.h">
       <Filter>Game\Arquivos de Cabeçalho</Filter>
     </ClInclude>
   </ItemGroup>
